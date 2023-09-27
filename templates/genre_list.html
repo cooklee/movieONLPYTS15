@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block zawartosc %}
+    <ul>
+        {% for movie in movies %}
+            <li>
+                <a href="/edit_genre/{{ genre.id }}/"> {{ genre }}</a>
+                <a href="/delete_genre/{{ genre.id }}/"> Usuń</a>
+
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

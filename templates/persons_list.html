@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block zawartosc %}
+    <ul>
+        {% for person in persons %}
+            <li>
+                <a href="/edit_person/{{ person.id }}/"> {{ person }}</a>
+                <a href="/delete_person/{{ person.id }}/"> Usuń</a>
+
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
