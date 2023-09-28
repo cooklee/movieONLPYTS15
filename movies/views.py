@@ -1,7 +1,9 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from django.views import View
 
-from movies.models import Person, Genre, Movie
+from movies.models import Person, Genre, Movie, MoviePerson
 
 
 class IndexView(View):
@@ -133,9 +135,12 @@ class ListMovieView(View):
 class EditMovieView(View):
 
     def get(self, request, id):
+
         movie = Movie.objects.get(pk=id)
         persons = Person.objects.all()
-        return render(request, 'form_movie.html', {'movie':movie, 'persons':persons})
+        http_resonse = render(request, 'form_movie.html', {'movie':movie, 'persons':persons})
+        http_resonse.set_cookie('edycja', 'dziad edytowal film', expires=datetime.datetime(2032, 1, 1))
+        return http_resonse
 
     def post(self, request, id):
         movie = Movie.objects.get(pk=id)
@@ -151,6 +156,21 @@ class EditMovieView(View):
         movie.director_id = director_id
         movie.save()
         return redirect('/genres/')
+
+
+
+class AddActorToMovieView(View):
+
+    def get(self, request, movie_id):
+        movie = Movie.objects.get(id=movie_id)
+        persons = Person.objects.all()
+        return render(request, 'addActorToMovie.html', {'movie':movie, 'persons':persons})
+
+    def post(self, request, movie_id):
+        actor_id = request.POST.get('actor')
+        rola = request.POST.get('rola')
+        MoviePerson.objects.create(person_id=actor_id, movie_id=movie_id, role=rola)
+        return redirect(f'/add_actor_to_movie/{movie_id}/')
 
 
 

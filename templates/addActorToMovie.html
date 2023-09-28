@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block zawartosc %}
+    <p> w filme {{ movie }} występuja:</p>
+    <ul>
+        {% for person_movie in movie.movieperson_set.all %}
+            <li>{{ person_movie.person }} jako {{ person_movie.role }}</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <br>
+
+    <form method="post">
+        {% csrf_token %}
+        <p><input type="text" name="rola" placeholder="rola"></p>
+        <p>
+            <select name="actor">
+                {% for person in persons %}
+                    <option value="{{ person.id }}">{{ person }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p><input type="submit"></p>
+    </form>
+    {% for ciasteczko in request.COOKIES.items %}
+        {{ ciasteczko }} <br>
+    {% endfor %}
+
+{% endblock %}
+
+
+
+

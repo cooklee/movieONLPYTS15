@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block zawartosc%}
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="ciasteczko" placeholder="nazwa ciasteczka">
+        <input type="text" name="wartosc" placeholder="wartosc">
+        <input type="submit">
+    </form>
+{% endblock %}

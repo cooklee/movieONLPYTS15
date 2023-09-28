@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from movies import views
+from cookieeees import views as cookie_views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', views.IndexView.as_view()),
@@ -31,4 +32,6 @@ urlpatterns = [
     path('add_movie/', views.AddMovieView.as_view()),
     path('movies/', views.ListMovieView.as_view()),
     path('edit_movie/<int:id>/', views.EditMovieView.as_view()),
+    path('add_actor_to_movie/<int:movie_id>/', views.AddActorToMovieView.as_view()),
+    path('cookie/', cookie_views.SetCookiesView.as_view())
 ]
